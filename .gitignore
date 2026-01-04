@@ -10,6 +10,4 @@ machine_learning_old.*
 test.py
 raw_data
 recovery.py
-.python-version
-.python-info
 __pycache__
