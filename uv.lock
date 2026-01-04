@@ -336,11 +336,11 @@ wheels = [
 
 [[package]]
 name = "dragon-ml-toolbox"
-version = "20.6.0"
+version = "20.7.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/62/53/6a65574f58631a9c00062df41f940e56f0608b3b8aa8601a85df0b53bc6f/dragon_ml_toolbox-20.6.0.tar.gz", hash = "sha256:e04529ac5bdf48f89fbfc683d137ba382daf3e4acf3c642ea762436c659812be", size = 296403, upload-time = "2026-01-02T06:15:53.502Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/97/0d/bcf4203fd4cdd97faf4ae78d762d407274b7387ab45d39a1fce39430f934/dragon_ml_toolbox-20.7.0.tar.gz", hash = "sha256:3cf35791daf1ba0478baf2d8a709b17f62c1a0b0548212938570c85977606db0", size = 297860, upload-time = "2026-01-04T04:15:07.548Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6b/38/fe20016ea2801832b4c7f811ededdfe40768a78c42c8ba33c394695e9894/dragon_ml_toolbox-20.6.0-py3-none-any.whl", hash = "sha256:3c84e5018c9ca4cb4bfd28ae72ca2655b5b9a0f237e587a330edee54b8472428", size = 371601, upload-time = "2026-01-02T06:15:56.182Z" },
+    { url = "https://files.pythonhosted.org/packages/b8/36/5185a5bf7857b786efaa90ff0ec374eb02160d6c52c4ca041b2fe89ad27c/dragon_ml_toolbox-20.7.0-py3-none-any.whl", hash = "sha256:fb1e4831fced728eb70ef882dee72b321bc884878e4ac644309539cfaa1095c2", size = 375027, upload-time = "2026-01-04T04:15:10.472Z" },
 ]
 
 [package.optional-dependencies]
@@ -1424,7 +1424,7 @@ wheels = [
 
 [[package]]
 name = "pregnancy-hypothyroidism"
-version = "0.1.0"
+version = "2.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "dragon-ml-toolbox", extra = ["ml"] },
@@ -1436,7 +1436,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "dragon-ml-toolbox", extras = ["ml"], specifier = "==20.6.0" }]
+requires-dist = [{ name = "dragon-ml-toolbox", extras = ["ml"], specifier = "==20.7.0" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "nbstripout", specifier = ">=0.8.2" }]

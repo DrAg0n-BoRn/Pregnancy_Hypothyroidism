@@ -1,45 +1,12 @@
-## Transform to numeric values
-## Missing values filled using MICE later on
-
+## Process to numeric values
 import polars as pl
-import os
+from ml_tools.utilities import load_dataframe, save_dataframe, translate_dataframe_columns, audit_column_translation
 
-non_numeric_data_path = os.path.join(os.getcwd(), "outputs", "raw_non_numeric_data.csv")
-non_numeric_data_v2_path = os.path.join(os.getcwd(), "outputs", "processed_non_numeric_data.csv")
-ID_COL = '匹配ID_日期'
+from paths import PM
+from helpers.constants import ID_COL
+
 
 #Define rules
-def 主要治疗结果(values: pl.Series):
-    '''
-    治愈=3, 好转=2, 未愈=1, 其他=0
-    '''
-    new_data = list()
-    for value in values:
-        if value is None:
-            new_data.append(None)
-        else:
-            value: str = value.strip()
-            if value == "":
-                new_data.append(None)
-            elif value == "治愈":
-                new_data.append(3)
-            elif value == "好转":
-                new_data.append(2)
-            elif value == "未愈":
-                new_data.append(1)
-            else:
-                new_data.append(0)
-    
-    return pl.Series(name=values.name, values=new_data, dtype=pl.Int32)
-
-
-def 分娩方式(values: pl.Series):
-    '''
-    4 columns: 分娩方式_产钳术, 分娩方式_剖宫产, 分娩方式_臀部助娩, 分娩方式_自然分娩
-    '''
-    return values.to_dummies().get_columns()
-
-
 def 血压(values: pl.Series):
     '''
     Divide the values into 2 columns: systolic blood pressure and diastolic blood pressure.
@@ -128,8 +95,6 @@ def plus_symbols(values: pl.Series):
 
 #Rules mapping
 RULES = {
-    '主要治疗结果': 主要治疗结果,
-    '分娩方式': 分娩方式,
     '血压': 血压,
     '抗甲状腺过氧化物酶抗体': positive_negative,
     '10.1-14周尿葡萄糖': plus_symbols,
@@ -184,6 +149,9 @@ def process_dataframe(df: pl.DataFrame):
                 processed_columns.extend(resulting_column)
             else:
                 processed_columns.append(resulting_column)
+        # ignore ID column
+        elif column == ID_COL:
+            continue
         else:
             processed_columns.append(df[column])
             
@@ -201,8 +169,8 @@ def check_data_numeric(df: pl.DataFrame) -> bool:
     
     # Iterate over the columns in the DataFrame
     for col in df.columns:
-        if col == ID_COL:
-            continue  # Skip the ID column
+        # if col == ID_COL:
+        #     continue  # Skip the ID column
         dtype = df[col].dtype
         
         # Check for integer types
@@ -223,20 +191,14 @@ def check_data_numeric(df: pl.DataFrame) -> bool:
     return True
 
 
-def load_dataframe(path: str=non_numeric_data_path):
-    return pl.read_csv(path, infer_schema=False)
-
-
-def save_dataframe(df: pl.DataFrame, path: str=non_numeric_data_v2_path):
-    df.write_csv(path)
-    print(f"Processed data saved to {path}")
-
-
 def main():
-    df = load_dataframe()
+    df, _ = load_dataframe(PM.processed_data_cn_file, kind="polars", all_strings=False)
     processed_df = process_dataframe(df)
     if check_data_numeric(processed_df):
-        save_dataframe(processed_df)
+        audit_column_translation(df_or_path=processed_df, mapper=PM.translation_file)
+        df_translated = translate_dataframe_columns(df=processed_df, mapper=PM.translation_file)
+        
+        save_dataframe(df=df_translated, full_path=PM.processed_data_file)
 
 
 if __name__ == "__main__":
