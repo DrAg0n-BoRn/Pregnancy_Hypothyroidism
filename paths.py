@@ -12,7 +12,7 @@ PM.vif = PM.data / "VIF"
 PM.mice_datasets = PM.data / "MICE Datasets"
 PM.mice_results = PM.results / "MICE Metrics"
 PM.train_datasets = PM.data / "Train Datasets"
-PM.train_results = PM.results / "Train Metrics"
+PM.resampling = PM.data / "Resampling"
 
 # Subdirectories
 PM.engineering_plots = PM.engineering / "Plots"
@@ -31,7 +31,6 @@ PM.processed_data_cn_file = PM.clean_data / "processed_data_cn.csv"
 PM.processed_data_file = PM.clean_data / "processed_data.csv"
 
 PM.engineering_data_file = PM.engineering_datasets / "engineered_data.csv"
-PM.train_data_file = PM.train_datasets / "train_data.csv"
 
 
 if __name__ == "__main__":
