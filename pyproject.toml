@@ -1,11 +1,11 @@
 [project]
 name = "pregnancy-hypothyroidism"
-version = "2.2.0"
+version = "2.3.0"
 description = "Deep learning applied to pregnancy complications"
 readme = "README.md"
 requires-python = "==3.12.*"
 dependencies = [
-    "dragon-ml-toolbox[ml]==20.8.0",
+    "dragon-ml-toolbox[ml]==20.9.0",
 ]
 
 [dependency-groups]
