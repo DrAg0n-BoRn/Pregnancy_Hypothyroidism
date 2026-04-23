@@ -9,3 +9,5 @@ data/*
 results/*
 recovery.py
 __pycache__
+
+*.ipynb

@@ -10,5 +10,9 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "nbstripout>=0.8.2",
+    "jupytext>=1.19.1",
 ]
+
+# Jupytext configuration
+[tool.jupytext]
+formats = "ipynb,md"
